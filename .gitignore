@@ -1,0 +1,51 @@
+# Python-related
+*.pyc
+*.pyo
+__pycache__/
+*.egg-info/
+dist/
+build/
+
+# Django-related
+*.sqlite3
+*.pyc
+*.pyo
+*.pyd
+*.pyc
+*.egg-info/
+__pycache__/
+media/
+
+# Development and IDE files
+*.env
+*.log
+*.vscode/
+*.idea/
+*.pydevproject
+*.pyc
+*.pyo
+*.stackdump
+*.bak
+
+# Compiled files and dependencies
+*.pyc
+*.pyo
+*.class
+*.so
+*.lib
+*.dll
+*.a
+*.o
+*.obj
+*.exe
+*.out
+*.bin
+*.svd
+
+# Miscellaneous
+.DS_Store
+Thumbs.db
+node_modules/
+npm-debug.log
+/magneton/core/migrations/
+/magneton/uploader/migrations/
