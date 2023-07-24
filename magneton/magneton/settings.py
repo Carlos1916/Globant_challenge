@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'corsheaders',
     # Local apps
     'uploader',
-    'core'
+    'core',
+    'backup'
 
 ]
 

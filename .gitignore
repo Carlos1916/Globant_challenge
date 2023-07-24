@@ -49,3 +49,4 @@ node_modules/
 npm-debug.log
 /magneton/core/migrations/
 /magneton/uploader/migrations/
+/magneton/backup/migrations/
