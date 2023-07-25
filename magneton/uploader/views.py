@@ -31,6 +31,8 @@ class UploadedFileViewSet(viewsets.ModelViewSet):
 
         csv_content = instance.file.read()
         csv_file = BytesIO(csv_content)
+        logger.info('Bucket name: %s', settings.AWS_STORAGE_BUCKET_NAME)
+
         s3.upload_fileobj(
             csv_file,
             settings.AWS_STORAGE_BUCKET_NAME,

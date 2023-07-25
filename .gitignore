@@ -50,3 +50,4 @@ npm-debug.log
 /magneton/core/migrations/
 /magneton/uploader/migrations/
 /magneton/backup/migrations/
+/magneton/recover/migrations/

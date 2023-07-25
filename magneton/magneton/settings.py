@@ -15,8 +15,6 @@ import os
 import environ
 
 
-
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Load environment variables from .env file
 env = environ.Env()
-environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+environ.Env.read_env()
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-z=b(uheb1fh#vudxn%o*029e8_hpb$0#$ejb@+@@iz4hp$kfi5'
@@ -54,7 +52,8 @@ INSTALLED_APPS = [
     # Local apps
     'uploader',
     'core',
-    'backup'
+    'backup',
+    'recover',
 
 ]
 

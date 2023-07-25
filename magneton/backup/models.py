@@ -15,5 +15,8 @@ class Backup(models.Model):
     s3_hired_employee_location = models.CharField(max_length=200, blank=True, null=True)
     s3_department_location = models.CharField(max_length=200, blank=True, null=True)
 
+    def __str__(self):
+        return f"Backup {self.id}"
+
 
 

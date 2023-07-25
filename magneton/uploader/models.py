@@ -79,24 +79,64 @@ class UploadedFile(models.Model):
         if self.file_table == 'hired_employees':
             logger.info('Uploading hired_employee table')
             for index, row in df.iterrows():
-                hired_employee, _ = HiredEmployee.objects.get_or_create(id=int(row['id']))
-                hired_employee.datetime = row['datetime']
+                department_id = int(row['department_id'])
+                job_id = int(row['job_id'])
 
-                hired_employee.department = Department.objects.get(id=int(row['department_id']))
-                hired_employee.job = Job.objects.get(id=int(row['job_id']))
-                hired_employee.save()
+                department = None
+                job = None
+
+                if department_id:
+                    try:
+                        department = Department.objects.get(_id=department_id)
+                    except Department.DoesNotExist:
+                        pass
+                if job_id:
+                    try:
+                        job = Job.objects.get(_id=job_id)
+                    except Job.DoesNotExist:
+                        pass
+
+                try:
+                    hired_employee = HiredEmployee.objects.get(_id=int(row['id']))
+                    hired_employee.datetime = row['datetime']
+
+                    if department:
+                        hired_employee.department = department
+                    if job:
+                        hired_employee.job = job
+                    hired_employee.save()
+                except HiredEmployee.DoesNotExist:
+                    HiredEmployee.objects.create(
+                        _id=int(row['id']),
+                        datetime=row['datetime'],
+                        department=department,
+                        job=job
+                    )
         elif self.file_table == 'departments':
             logger.info('Uploading department table')
             for index, row in df.iterrows():
-                department, _ = Department.objects.get_or_create(id=int(row['id']))
-                department.department = row['department']
-                department.save()
+                try:  # try to update
+                    department = Department.objects.get(_id=int(row['id']))
+                    department.department = row['department']
+                    department.save()
+                except Department.DoesNotExist:
+                    Department.objects.create(
+                        _id=int(row['id']),
+                        department=row['department']
+                    )
+
         elif self.file_table == 'jobs':
             logger.info('Uploading job table')
             for index, row in df.iterrows():
-                job, _ = Job.objects.get_or_create(id=int(row['id']))
-                job.job = row['job']
-                job.save()
+                try:  # try to update
+                    job = Job.objects.get(_id=int(row['id']))
+                    job.job = row['job']
+                    job.save()
+                except Job.DoesNotExist:  # if not exists, create
+                    Job.objects.create(
+                        _id=int(row['id']),
+                        job=row['job']
+                    )
         else:
             logger.info(f'No table found for {self.file_table}')
 
