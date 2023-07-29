@@ -7,7 +7,7 @@ from rest_framework.response import Response
 from .models import Recover
 from backup.models import Backup
 from .serializers import RecoverSerializer
-from .utils import JobRecover, DepartmentRecover, HiredEmployeeRecover
+from .utils import JobRecover, DepartmentRecover, HiredEmployeeRecover, delete_models
 # Create your views here.
 
 logger = logging.getLogger(__name__)
@@ -17,6 +17,12 @@ logger.setLevel(logging.INFO)
 class RecoverViewSet(APIView):
     def get(self, request):
         logger.info("RecoverView GET called")
+
+        # delete all models
+        logger.info("Deleting all models")
+        delete_models()
+        logger.info("All models deleted")
+
         logger.info("Creating recover")
         # backup files from s3
         backup = Backup.objects.last()
