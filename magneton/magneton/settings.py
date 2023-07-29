@@ -30,9 +30,10 @@ environ.Env.read_env()
 SECRET_KEY = 'django-insecure-z=b(uheb1fh#vudxn%o*029e8_hpb$0#$ejb@+@@iz4hp$kfi5'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env.bool('DJANGO_DEBUG', default=True)
 
-ALLOWED_HOSTS = []
+LOCAL_ENVIRONMENT = env.bool('LOCAL_ENVIRONMENT', default=True)
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -65,7 +66,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware'
+    'corsheaders.middleware.CorsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'magneton.urls'
@@ -89,16 +91,16 @@ TEMPLATES = [
 WSGI_APPLICATION = 'magneton.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+    "default": {
+        "ENGINE": env('DB_ENGINE', default='django.db.backends.postgresql_psycopg2'),
+        "NAME": env('DB_NAME', default='postgres'),
+        "USER": env('DB_USER', default='postgres'),
+        "PASSWORD": env('DB_PASSWORD', default='postgres'),
+        "HOST": env('DB_HOST', default='localhost'),
+        "PORT": env('DB_PORT', default='5433'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -134,7 +136,8 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
@@ -185,3 +188,4 @@ LOGGING = {
         },
     },
 }
+

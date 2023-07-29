@@ -8,9 +8,14 @@ django-environ==0.10.0
 django-extensions==3.2.3
 django-storages==1.13.2
 djangorestframework==3.14.0
+environ==1.0
+fastavro==1.8.2
+gunicorn==21.2.0
 jmespath==1.0.1
 numpy==1.25.1
+packaging==23.1
 pandas==2.0.3
+psycopg2==2.9.6
 python-dateutil==2.8.2
 python-dotenv==1.0.0
 pytz==2023.3
@@ -20,3 +25,4 @@ sqlparse==0.4.4
 typing_extensions==4.7.1
 tzdata==2023.3
 urllib3==1.26.16
+whitenoise==6.5.0

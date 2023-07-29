@@ -1,0 +1,22 @@
+# General settings
+# LOCAL_ENVIRONMENT=1
+
+# Django
+DJANGO_ALLOWED_HOSTS=localhost
+DJANGO_DEBUG=True
+DJANGO_SETTINGS_MODULE=magneton.settings
+
+
+# AWS Relate
+AWS_ACCESS_KEY_ID=<your_aws_access_key>
+AWS_REGION=<your_aws_region>
+AWS_S3_BUCKET=<your_aws_bucket>
+AWS_SECRET_ACCESS_KEY=<your_aws_secret_access_key>
+
+# Database
+DB_NAME=<your_db_name>
+DB_USER=<your_db_name>
+DB_PASSWORD=<your_db_name>
+DB_HOST=db # needs to be as declared in docker-compose.yml
+DB_PORT=5432
+DB_ENGINE=django.db.backends.postgresql_psycopg2

@@ -1,0 +1,29 @@
+version: '1'
+services:
+  web:
+    build:
+        context: .
+        dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    depends_on:
+        - db
+    volumes:
+      - .:/magneton
+    env_file:
+      - magneton/.env
+
+  db:
+    image: postgres:12
+    container_name: magneton_db
+    environment:
+        - POSTGRES_DB=magneton
+        - POSTGRES_USER=postgres
+        - POSTGRES_PASSWORD=postgress
+    volumes:
+      - db_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+volumes:
+    db_data:
