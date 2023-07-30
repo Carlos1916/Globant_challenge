@@ -46,16 +46,25 @@ This module will delete all the data in the database and replace it with the dat
 Wait until the server responds with a 200 OK status code.
 
 ## Analytics
-The analytics module is used to fetch analytical data from the database. To use it you need to send a GET request to the following URL: [http://localhost:8000/analytics](http://localhost:8000/analytics).
-## To Do
-- Finish Frontend [Porygon]
-- Add endpoints to fetch analytical data:
-  - Number of employees hired for each job and department in 2021 divided by quarter. The
+The analytics module is used to fetch analytical data from the database. In this case there are 2 endpoints for two different analytics:
+- Number of employees hired for each job and department in 2021 divided by quarter. The
 table must be ordered alphabetically by department and job:
   ![img.png](util_images/ch2_example1.png)
-  - List of ids, name and number of employees hired of each department that hired more
+  - url: [http://localhost:8000/quarter](http://localhost:8000/quarter)
+  - method: GET
+  - result:
+  - ![img.png](util_images/analytics_quarter.png)
+  - status code: 200 OK
+- List of ids, name and number of employees hired of each department that hired more
 employees than the mean of employees hired in 2021 for all the departments, ordered
 by the number of employees hired (descending):
-  ![img.png](util_images/ch2_example2.png)
-- Make it a Cloud Service
+  -   ![img.png](util_images/ch2_example2.png)
+  - url: [http://localhost:8000/department](http://localhost:8000/departments)
+  - method: GET
+  - result:
+  - ![img.png](util_images/analytics_department.png)
 
+
+## To Do
+- Finish Frontend [Porygon]
+- Make it a Cloud Service
