@@ -1,10 +1,14 @@
 import io
+import logging
 
 import boto3
 import fastavro
 from botocore.exceptions import ClientError
 
 from core.models import Job, Department, HiredEmployee
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 def parse_s3_uri(s3_uri):
@@ -26,6 +30,8 @@ def get_data_from_avro(s3_bucket, s3_key):
 
     # Create an Avro reader
     avro_data = list(fastavro.reader(io.BytesIO(avro_data)))
+    logger.info("Avro data: %s", len(avro_data))
+    logger.info("Avro data: %s", avro_data[0:5])
 
     return avro_data
 
@@ -115,6 +121,7 @@ class HiredEmployeeRecover:
             he_data = {
                 '_id': he['_id'],
                 'datetime': he['datetime'],
+                'name': he['name'],
                 'department': department_instance,
                 'job': job_instance,
             }
@@ -123,11 +130,15 @@ class HiredEmployeeRecover:
 
     def save(self):
         hired_employee_list = self.dictionary_builder()
+        logger.info("Hired employee list: %s", len(hired_employee_list))
         for i in hired_employee_list:
-            hired_employee_instance, created = HiredEmployee.objects.get_or_create(_id=i['_id'])
+            logger.info("Hired employee: %s", i)
+            hired_employee_instance, created = HiredEmployee.objects.get_or_create(**i)
+            logger.info("Created: %s", created)
             if not created:
                 hired_employee_instance._id = i['_id']
                 hired_employee_instance.datetime = i['datetime']
+                hired_employee_instance.name = i['name']
                 hired_employee_instance.department = i['department']
                 hired_employee_instance.job = i['job']
                 hired_employee_instance.save()

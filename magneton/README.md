@@ -45,6 +45,8 @@ This module will delete all the data in the database and replace it with the dat
 
 Wait until the server responds with a 200 OK status code.
 
+## Analytics
+The analytics module is used to fetch analytical data from the database. To use it you need to send a GET request to the following URL: [http://localhost:8000/analytics](http://localhost:8000/analytics).
 ## To Do
 - Finish Frontend [Porygon]
 - Add endpoints to fetch analytical data:

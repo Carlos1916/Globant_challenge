@@ -99,6 +99,7 @@ class UploadedFile(models.Model):
                 try:
                     hired_employee = HiredEmployee.objects.get(_id=int(row['id']))
                     hired_employee.datetime = row['datetime']
+                    hired_employee.name = row['name']
 
                     if department:
                         hired_employee.department = department
@@ -109,6 +110,7 @@ class UploadedFile(models.Model):
                     HiredEmployee.objects.create(
                         _id=int(row['id']),
                         datetime=row['datetime'],
+                        name=row['name'],
                         department=department,
                         job=job
                     )

@@ -17,6 +17,7 @@ hired_employees_avro_schema = {
   "fields": [
     {"name": "_id", "type": "int"},
     {"name": "datetime", "type": "string"},
+    {"name": "name", "type": "string", "default": ""},
     {
       "name": "department",
       "type": ["null", {
@@ -73,6 +74,7 @@ def create_hired_employees_records(employees):
         avro_record = {
             '_id': employee._id,
             'datetime': employee.datetime,
+            'name': employee.name,
             'department': {
                 '_id': employee.department._id,
                 'department': employee.department.department,
