@@ -3,11 +3,11 @@ import logging
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-
 from .models import Recover
 from backup.models import Backup
 from .serializers import RecoverSerializer
 from .utils import JobRecover, DepartmentRecover, HiredEmployeeRecover, delete_models
+from core.models import Job, Department, HiredEmployee
 # Create your views here.
 
 logger = logging.getLogger(__name__)
@@ -33,6 +33,7 @@ class RecoverViewSet(APIView):
         job_recover.recover()
         department_recover.recover()
         hired_employee_recover.recover()
+        logger.info("Data recovered")
         # create recover object
         recover = Recover.objects.create(
             is_job=True,
@@ -43,7 +44,17 @@ class RecoverViewSet(APIView):
             hired_employee_recover_s3_path=backup.s3_hired_employee_location
         )
         recover.save()
-        return Response({"message": "Recover created successfully."})
+
+        job_registrations = Job.objects.all().count()
+        department_registrations = Department.objects.all().count()
+        hired_employee_registrations = HiredEmployee.objects.all().count()
+        return Response({"message": "Recovered Data successfully.",
+                         "recovered_data": {
+                             "job_registrations": job_registrations,
+                             "department_registrations": department_registrations,
+                             "hired_employee_registrations": hired_employee_registrations
+                         },
+                         })
 
 
 

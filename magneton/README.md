@@ -1,6 +1,7 @@
 # Magneton
 
 ![Magneton](https://archives.bulbagarden.net/media/upload/9/9f/Pokedex_Image_Magneton_SV.png)
+
 ## Description
 Magneton is a Django server that provides a REST API for the processing of Data in 3 different modules(magnemites... get it?):
 - **uploader**: Uploads a file to the server and stores it in a database.
@@ -40,4 +41,19 @@ Wait until the server responds with a 200 OK status code.
 The Recover Module is used to recover the database from a backup in S3 bucket. To use it you need to send a GET request to the following URL: [http://localhost:8000/recover](http://localhost:8000/recover).
 This module will delete all the data in the database and replace it with the data in the backup.
 
+![img.png](util_images/img_recover.png)
+
+Wait until the server responds with a 200 OK status code.
+
+## To Do
+- Finish Frontend [Porygon]
+- Add endpoints to fetch analytical data:
+  - Number of employees hired for each job and department in 2021 divided by quarter. The
+table must be ordered alphabetically by department and job:
+  ![img.png](util_images/ch2_example1.png)
+  - List of ids, name and number of employees hired of each department that hired more
+employees than the mean of employees hired in 2021 for all the departments, ordered
+by the number of employees hired (descending):
+  ![img.png](util_images/ch2_example2.png)
+- Make it a Cloud Service
 
