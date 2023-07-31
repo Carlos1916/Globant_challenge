@@ -42,7 +42,7 @@ mean_hired AS (
     department_stats
 )
 SELECT
-  cd.id AS id,
+  cd._id AS id,
   cd.department AS department,
   ds.num_hired AS hired
 FROM
